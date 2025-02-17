@@ -11,6 +11,8 @@ export default function Profil () {
 
     const token = useSelector((state) => state.auth.token)
     const {data, isLoading, error} = useGetUserProfileQuery(token)
+    const profile = useSelector(state => state.profilData.profile)
+
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
@@ -30,7 +32,7 @@ export default function Profil () {
                     <h1>
                         Welcome Back 
                         <br />
-                        {isLoading ? "Loading" : `${data.body?.firstName} ${data.body?.lastName}`}
+                        {profile === undefined ? "Loading" : `${profile?.firstName} ${profile?.lastName}`}
                     </h1>
                     <button className="edit-button">Edit Name</button>
                 </div>
