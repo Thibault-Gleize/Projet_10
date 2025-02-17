@@ -1,16 +1,16 @@
 import iconChat from "../../assets/img/icon-chat.png"
 import iconMoney from "../../assets/img/icon-money.png"
 import iconSecurity from "../../assets/img/icon-security.png"
-import Header from "../../components/Header"
 import Banner from "../../components/Banner"
 import FeaturesItem from "../../components/FeaturesItem"
 import Footer from "../../components/Footer"
+
+// Ne pas oublier d'optimiser les images !! 
 
 export default function Home () {
 
     return (
         <div className="body">
-            <Header />
             <main>
                 <Banner />
                 <section className="features">
