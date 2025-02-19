@@ -9,6 +9,7 @@ import { Provider } from 'react-redux';
 import { store } from './store';
 
 import Header from './components/Header';
+import Footer from './components/Footer';
 
 
 
@@ -17,11 +18,12 @@ createRoot(document.getElementById('root')).render(
       <Provider store={store}>
         <Router>
           <Header />
-          <Routes path='/'>
-            <Route index element={<Home />}/>
-            <Route path='login' element={<Login />}/>
-            <Route path='profil' element={<Profil />}/>
-          </Routes>
+            <Routes path='/'>
+              <Route index element={<Home />}/>
+              <Route path='login' element={<Login />}/>
+              <Route path='profil' element={<Profil />}/>
+            </Routes>
+          <Footer />
         </Router>
       </Provider>
   </StrictMode>,

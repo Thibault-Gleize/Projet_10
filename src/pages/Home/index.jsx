@@ -3,7 +3,6 @@ import iconMoney from "../../assets/img/icon-money.png"
 import iconSecurity from "../../assets/img/icon-security.png"
 import Banner from "../../components/Banner"
 import FeaturesItem from "../../components/FeaturesItem"
-import Footer from "../../components/Footer"
 
 // Ne pas oublier d'optimiser les images !! 
 
@@ -20,7 +19,6 @@ export default function Home () {
                     <FeaturesItem source={iconSecurity} title="Security you can trust" description="We use top of the line encryption to make sure your data and money is always safe." />
                 </section>
             </main>
-            <Footer />
         </div>
     )
 }

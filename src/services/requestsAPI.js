@@ -14,8 +14,15 @@ export const api = createApi({
             method: "POST",
             body: loginInput
         })
+    }),
+        putEditUser: builder.mutation({query: ({userInput, token}) => ({
+            url: "profile",
+            method: "PUT",
+            headers: {"Authorization": `Bearer ${token}`},
+            body: {userName: userInput},
+        })
     })
     }) 
 })
 
-export const { useGetUserProfileQuery, usePostLoginMutation } = api
+export const { useGetUserProfileQuery, usePostLoginMutation, usePutEditUserMutation } = api
