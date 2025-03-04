@@ -3,12 +3,12 @@ import { usePostLoginMutation } from "../../services/requestsAPI"
 import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router"
 import { authSlice } from "./AuthSlice"
-// import { useSelector } from "react-redux"
 
 
 export default function Form () {
 
     const [credentials, setCredentials] = useState({ email: "", password: ""})
+    const [rememberMe, setRememberMe] = useState(false)
     const dispatch = useDispatch()
     const navigate = useNavigate()
     
@@ -17,7 +17,14 @@ export default function Form () {
     const handleLogin = async (e) => {
          e.preventDefault()
          await postLogin(credentials).unwrap()
-            .then((payload) => dispatch(authSlice.actions.connect(payload.body.token)))
+            .then((payload) => {
+                if (rememberMe) {
+                    localStorage.setItem("authToken", payload.body.token);
+                    dispatch(authSlice.actions.connect(payload.body.token));
+                } else {
+                    dispatch(authSlice.actions.connect(payload.body.token));
+                }
+            })
         }
 
     useEffect(() => {
@@ -38,7 +45,7 @@ export default function Form () {
                     <label htmlFor="password">Password</label><input name="password" type="password" id="password" onChange={(e) => setCredentials(() => ({...credentials, password: e.target.value}))}/>
                 </div>
                 <div className="input-remember">
-                    <input type="checkbox" id="remember-me" /><label htmlFor="remember-me">Remember me</label>
+                    <input type="checkbox" id="remember-me" checked={rememberMe} onChange={(e) => setRememberMe(e.target.checked)} /><label htmlFor="remember-me">Remember me</label>
                 </div>
                 {
                     error && <p>{error.data.message}</p>

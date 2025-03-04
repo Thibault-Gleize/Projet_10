@@ -13,8 +13,9 @@ export default function Profil () {
 
     // Gestion du hook avec appel API GET, gestion du profile et token avec useSelector pour updater dès que changement.
     const token = useSelector((state) => state.auth.token)
-    const {data, isLoading, error, refetch} = useGetUserProfileQuery(token)
+    const {data, isLoading, error, refetch} = useGetUserProfileQuery(token || localStorage.getItem("authToken"))
     const profile = useSelector((state) => state.profilData.profile)
+    // const headerUser = useSelector((state) => localStorage.setItem(state.profile.firstName))
 
     // Gestion de la partie édition de l'username
     const [editOpen, setEditOpen] = useState(false)
@@ -23,6 +24,7 @@ export default function Profil () {
     async function handleEdit () {
         const response = await putEditUser({ userInput: newUser, token: token});
         alert(response.data.message)
+        setEditOpen(false)
         refetch()
     }
 
