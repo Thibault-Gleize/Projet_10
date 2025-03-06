@@ -1,0 +1,171 @@
+openapi: 3.0.0
+info:
+  title: Argent Bank API for transaction
+  version: 1.0.1
+  description: API for managing user transactions and balance.
+
+servers:
+  - url: http://localhost:3001/api/v1
+
+security:
+  - ApiKeyAuth: []
+
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      name: Authorization
+      in: header
+
+  schemas:
+    BalanceResponse:
+      type: object
+      properties:
+        name:
+          type: string
+          example: "Argent Bank Checking"
+        balance:
+          type: number
+          format: float
+          example: 0
+        description:
+          type: string
+          example: "available balance"
+
+    Transaction:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 0
+        date:
+          type: string
+          example: "string"
+        description:
+          type: string
+          example: "string"
+        amount:
+          type: number
+          example: 0
+        balance:
+          type: number
+          example: 0
+        type:
+          type: string
+          example: "string"
+        category:
+          type: string
+          example: "string"
+        note:
+          type: string
+          example: "string"
+
+    TransactionUpdateRequest:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: integer
+          example: 0
+        category:
+          type: string
+          example: "string"
+        note:
+          type: string
+          example: "string"
+
+    TransactionUpdateResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 0
+        message:
+          type: string
+          example: "transaction updated successfully"
+        body:
+          $ref: "#/components/schemas/Transaction"
+
+paths:
+  /user/balance:
+    get:
+      summary: Retrieve user balance
+      responses:
+        '200':
+          description: User Balance retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BalanceResponse"
+        '401':
+          description: Unauthorized
+        '500':
+          description: Server error
+
+  /user/transaction:
+    get:
+      summary: Retrieve all user transactions
+      responses:
+        '200':
+          description: User Transactions retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Transaction"
+        '401':
+          description: Unauthorized
+        '500':
+          description: Server error
+
+  /user/transaction/{id}:
+    get:
+      summary: Retrieve a specific transaction by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: User specific transaction retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Transaction"
+        '401':
+          description: Unauthorized
+        '500':
+          description: Server error
+
+  /user/profile/transactions/{id}:
+    put:
+      summary: Update a specific transaction by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TransactionUpdateRequest"
+      responses:
+        '200':
+          description: Transaction correctly modified
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TransactionUpdateResponse"
+        '400':
+          description: Invalid fields
+        '401':
+          description: Unauthorized
+        '500':
+          description: Server error

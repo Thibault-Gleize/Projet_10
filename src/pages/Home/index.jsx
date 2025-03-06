@@ -4,8 +4,6 @@ import iconSecurity from "../../assets/img/icon-security.png"
 import Banner from "../../components/Banner"
 import FeaturesItem from "../../components/FeaturesItem"
 
-// Ne pas oublier d'optimiser les images !! 
-
 export default function Home () {
 
     return (
