@@ -28,7 +28,7 @@ export default function Header () {
                         <>
                             <Link to="/profil" className='main-nav-item'><i className="fa fa-user-circle"></i> 
                             { 
-                                profile === undefined ? "Loading" : profile.firstName
+                                profile === undefined ? "Loading" : profile.userName
                             }
                             </Link>
                             <Link to="/" className='main-nav-item' onClick={() => disconnect()}><i className="fa fa-sign-out"></i> Sign out </Link>
